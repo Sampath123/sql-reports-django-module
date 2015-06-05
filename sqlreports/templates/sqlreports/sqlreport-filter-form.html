@@ -1,0 +1,50 @@
+<form method="GET" action="/sql-reports/{{report.id}}/">
+    <br/>
+    {% for param in params %}
+    <div class="row">
+      <div class="col-md-2">
+        <label class="pull-right">{%if param.display_name %}{{param.display_name }}{%else%}{{param.param_key}}{%endif%}</label>
+      </div>
+      <div class="col-md-8">
+        {% if param.choices %}
+          {% if param_dict %}
+            {% for key, values in param_dict.items %}
+              {% if key == param.param_key %}
+                <select name="{{param.param_key}}" class="form-control">
+                  {%for opt in param.choice_list%}
+                    <option {% ifequal values opt %} selected {%endifequal%}>{{opt}}</option>
+                  {%endfor%}
+                </select>
+              {% endif %}
+            {% endfor %}
+          {% else %}
+            <select name="{{param.param_key}}" class="form-control">
+              {%for opt in param.choice_list%}
+                <option>{{opt}}</option>
+              {%endfor%}
+            </select>
+          {% endif %}
+        {% else %}
+          {% if param_dict %}
+            {% for key, values in param_dict.items %}
+              {% if key == param.param_key %}
+                <input name="{{param.param_key}}" type="text" class="form-control" value="{{values}}">
+              {% endif %}
+            {% endfor %}
+          {% else %}
+            <input name="{{param.param_key}}" type="text" class="form-control">
+          {% endif %}
+        {% endif %}
+        {%if param.help_text %}<p class="small"><i>{{param.help_text}}</i></p>{%endif%}
+        
+      </div>
+    </div>
+    {% endfor %}
+    <br/>
+    <div class="row ">
+      <div class="col-md-offset-2 col-md-8">
+        <input type="submit" name="is_html" value="Get Report" class="btn btn-primary"/>
+        <input type="submit" name="is_csv" value="Download CSV" class="btn btn-secondary"/>
+      </div>
+    </div>
+</form>

@@ -1,0 +1,32 @@
+{% extends "sqlreports/base.html" %}
+
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <h3><a href="{% url 'report_list'%}">All Reports</a> &gt;&gt; {{report.name}}</h3>
+     <p>{{report.description}}</p>
+    <hr/>
+  {% include "sqlreports/sqlreport-filter-form.html" %}
+  <hr/>
+  </div>
+  {% if is_html %}
+
+  <div class="row">
+    {% if not error_msg %}
+        <h3>Found {{report_data|length}} Results</h3>
+        <table class="table table-bordered table-striped" style="background: #fff;">
+          <tr>{% for header in headers %} <th>{{header}}</th>{% endfor %} </tr>
+          {% for data in report_data %}
+          <tr>{% for item in data.items %}<td>{{item.1}}</td>{% endfor %}</tr>
+          {% endfor %}
+        </table>
+    {% else %}
+      <div>
+        <span class="text-danger">{{error_msg}}</span>
+      </div>
+    {% endif %}
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% load staticfiles %}
+<html>
+<head>
+   {% block css %}
+    <link rel="stylesheet" href="{% static 'sqlreports/bower_components/bootstrap/dist/css/bootstrap.min.css' %}">
+  {% endblock css %}
+</head>
+
+<body>
+{% block content %}
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,14 @@
+{% extends "sqlreports/base.html" %}
+
+{% block content %}
+<div class="container reports-container">
+<h3>Available SQL Reports ({{sqlreports|length}})</h3>
+<hr/>
+{% for sqlreport in sqlreports %}
+    <h4><a href="{{sqlreport.id}}/">{{sqlreport.name}}</a></h4>
+    <p>{{sqlreport.description}}</p>
+    <hr/>
+{% endfor %}
+
+</div>
+{% endblock content %}
